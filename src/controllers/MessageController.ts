@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Message from '../entities/Message';
-import MessagesService from '../services/MessageService';
+import { MessagesService } from '../services/MessageService';
 
 
 class MessagesController {

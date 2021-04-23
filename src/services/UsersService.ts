@@ -8,18 +8,26 @@ class UsersService {
 
     private usersRepository: Repository<User>
 
-    async create(email: string) {
+    constructor(){
+        this.usersRepository = getCustomRepository(UsersRepository);
+    }
+
+    async create(email: string): Promise<User> {
         
-
-        const userExists = await this.usersRepository.findOne({ email })
-
+        const userExists = await this.findByEmail(email);
+        
         if(userExists) return userExists;
-
+        
         const user = this.usersRepository.create({ email });
-
+        
         await this.usersRepository.save(user);
         
         return user;
+    }
+    
+    async findByEmail(email: string): Promise<User> {
+        const user = await this.usersRepository.findOne({ email })
+        return user
     }
 
 }
